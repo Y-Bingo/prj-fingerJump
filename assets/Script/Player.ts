@@ -14,25 +14,24 @@ const { ccclass, property } = cc._decorator;
 export default class Player extends cc.Component {
 
     /** 跳跃持续时间 */
-    @property( cc.Integer )
+    @property
     jumpDuration: number = 0;
 
     /** 跳跃高度 */
-    @property( cc.Integer )
+    @property
     jumpHeight: number = 0;
 
     /** 最大移动速度 */
-    @property( cc.Integer )
+    @property
     maxMoveSpeed: number = 0;
 
     /** 加速度 */
-    @property( cc.Integer )
+    @property
     accel: number = 0;
 
     /** 跳跃音效 */
     @property( { type: cc.AudioClip } )
     jumpAudio: cc.AudioClip = null;
-
 
     private _xSpeed: number = 0;
     private _accLeft: boolean = false;

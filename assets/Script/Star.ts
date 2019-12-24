@@ -15,7 +15,7 @@ const { ccclass, property } = cc._decorator;
 export default class Star extends cc.Component {
 
     /** 碰撞半径 */
-    @property( cc.Integer )
+    @property
     pickRadius: number = 0;
 
     /** 游戏对象的引用 */

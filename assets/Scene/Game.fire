@@ -180,7 +180,7 @@
       "array": [
         0,
         0,
-        554.2562584220408,
+        359.4140742174762,
         0,
         0,
         0,
@@ -669,14 +669,14 @@
     "ground": {
       "__id__": 7
     },
+    "player": {
+      "__id__": 9
+    },
     "scoreDisplay": {
       "__id__": 13
     },
     "scoreAudio": {
       "__uuid__": "aeda8b8c-df62-438e-b9df-d89c317d1326"
-    },
-    "player": {
-      "__id__": 9
     },
     "maxStarDuration": 5,
     "minStarDuration": 3,

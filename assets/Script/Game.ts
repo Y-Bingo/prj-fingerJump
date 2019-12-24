@@ -8,8 +8,6 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-import Player from "./Player";
-
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -27,6 +25,10 @@ export default class Game extends cc.Component {
     @property( cc.Node )
     ground: cc.Node = null;
 
+    /** 主角 */
+    @property( cc.Node )
+    player: cc.Node = null;
+
     /**分数显示 */
     @property( cc.Label )
     scoreDisplay: cc.Label = null;
@@ -35,15 +37,11 @@ export default class Game extends cc.Component {
     @property( { type: cc.AudioClip } )
     scoreAudio: cc.AudioClip = null;
 
-    /** 主角 */
-    @property( cc.Node )
-    player: cc.Node = null;
-
     /** 星星产生的最大随机范围 */
-    @property( cc.Integer )
+    @property
     maxStarDuration: number = 0;
     /** 星星产生的最小随机范围 */
-    @property( cc.Integer )
+    @property
     minStarDuration: number = 0;
 
     private _groundY: number = 0;      // 地面高度
