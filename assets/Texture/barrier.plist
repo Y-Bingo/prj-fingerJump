@@ -4,83 +4,83 @@
   <dict>
     <key>frames</key>
     <dict>
-      <key>floor.png.png</key>
+      <key>foothold.png</key>
       <dict>
         <key>frame</key>
-        <string>{{0,0},{148,125}}</string>
+        <string>{{0,0},{150,126}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,0},{148,125}}</string>
+        <string>{{0,0},{150,126}}</string>
         <key>sourceSize</key>
-        <string>{148,125}</string>
+        <string>{150,126}</string>
       </dict>
-      <key>mushroom.png.png</key>
+      <key>block_1.png</key>
       <dict>
         <key>frame</key>
-        <string>{{0,127},{124,148}}</string>
+        <string>{{0,126},{170,180}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,0},{124,148}}</string>
+        <string>{{0,0},{170,180}}</string>
         <key>sourceSize</key>
-        <string>{124,148}</string>
+        <string>{170,180}</string>
       </dict>
-      <key>stone.png.png</key>
+      <key>block_2.png</key>
       <dict>
         <key>frame</key>
-        <string>{{0,277},{140,106}}</string>
+        <string>{170,126},{170,180}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,0},{140,106}}</string>
+        <string>{{0,0},{170,180}}</string>
         <key>sourceSize</key>
-        <string>{140,106}</string>
+        <string>{170,180}</string>
       </dict>
-      <key>diamond.png.png</key>
+      <key>block_3.png</key>
       <dict>
         <key>frame</key>
-        <string>{{126,127},{114,125}}</string>
+        <string>{{340,126},{170,180}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,0},{114,125}}</string>
+        <string>{{0,0},{170,180}}</string>
         <key>sourceSize</key>
-        <string>{114,125}</string>
+        <string>{170,180}</string>
       </dict>
-      <key>bomb.png.png</key>
+      <key>block_4.png</key>
       <dict>
         <key>frame</key>
-        <string>{{142,254},{98,128}}</string>
+        <string>{{510,126},{170,180}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,0},{98,128}}</string>
+        <string>{{0,0},{170,180}}</string>
         <key>sourceSize</key>
-        <string>{98,128}</string>
+        <string>{170,180}</string>
       </dict>
-      <key>mock.png.png</key>
+      <key>block_5.png</key>
       <dict>
         <key>frame</key>
-        <string>{{150,0},{103,116}}</string>
+        <string>{{680,126},{170,180}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,0},{103,116}}</string>
+        <string>{{0,0},{170,180}}</string>
         <key>sourceSize</key>
-        <string>{103,116}</string>
+        <string>{170,180}</string>
       </dict>
     </dict>
     <key>metadata</key>
@@ -90,7 +90,7 @@
       <key>realTextureFileName</key>
       <string>barrier.png</string>
       <key>size</key>
-      <string>{253,383}</string>
+      <string>{850,306}</string>
       <key>textureFileName</key>
       <string>barrier.png</string>
     </dict>
