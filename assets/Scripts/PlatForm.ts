@@ -1,17 +1,7 @@
-// Learn TypeScript:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
 const { ccclass, property } = cc._decorator;
 
 /** 楼梯/障碍物类型 */
-enum EFloorType {
+export enum EFloorType {
     NONE = 0,
     MOCK = 1,
     BOMB = 2,
@@ -29,7 +19,7 @@ export default class PlatForm extends cc.Component {
 
     /** 平台类型 */
     @property
-    private _floorType: EFloorType = EFloorType.NONE;
+    private _floorType: EFloorType = -1;
 
     @property
     get floorType() { return this._floorType; }
@@ -37,14 +27,22 @@ export default class PlatForm extends cc.Component {
     set floorType( value: EFloorType ) {
         if ( isNaN( value ) ) return;
         if ( this._floorType == value ) return;
-        value = Math.max( Math.min( value, EFloorType.NONE ), EFloorType.STONE );
+        value = Math.max( Math.min( value, EFloorType.STONE ), EFloorType.NONE );
 
         this._floorType = value;
         this._changeType();
     }
 
     private _changeType(): void {
-        let sprite = this.block.getComponent( "Sprite" ) as cc.Sprite;
-        // sprite.spriteFrame = sprite.
+        let sprite = this.block.getComponent( cc.Sprite );
+        sprite.spriteFrame = this.blockFrameList[ this._floorType ];
     }
+
+    /** 图片类型 */
+    @property( [ cc.SpriteFrame ] )
+    blockFrameList: cc.SpriteFrame[] = [];
+
+    // protected onLoad() {
+    //     // this.floorType = 0;
+    // }
 }

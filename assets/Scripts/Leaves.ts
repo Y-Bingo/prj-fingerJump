@@ -69,6 +69,5 @@ export default class Leaves extends cc.Component {
 
         // if ( this.right_2.y <= -this.right_2.height )
         //     this.right_2.y = this.right_2.height + this.right_1.y;
-
     }
 }
