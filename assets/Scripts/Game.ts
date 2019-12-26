@@ -1,12 +1,4 @@
-// Learn TypeScript:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+import Player from "./Player";
 
 const { ccclass, property } = cc._decorator;
 
@@ -21,8 +13,26 @@ export default class Game extends cc.Component {
     @property( cc.Node )
     layer_floor: cc.Node = null;
 
+    @property( cc.Button )
+    leftButton: cc.Button = null;
+    @property( cc.Button )
+    rightButton: cc.Button = null;
+
+    @property( cc.Node )
+    player: cc.Node = null;
+
     onLoad() {
-        console.log( this.layer_leaves );
+        this.leftButton.node.on( "click", this._onLeft, this );
+        this.rightButton.node.on( "click", this._onRight, this );
+    }
+
+    private _onLeft(): void {
+        console.log( "向左" );
+        this.player.getComponent( Player ).jump( -1 );
+    }
+    private _onRight(): void {
+        console.log( "向右" );
+        this.player.getComponent( Player ).jump( 1 );
     }
 
     start() {

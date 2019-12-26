@@ -43,7 +43,6 @@ export default class Leaves extends cc.Component {
 
         this.right_1.y = 0;
         this.right_2.y = this.right_2.height;
-
     }
 
     start() {

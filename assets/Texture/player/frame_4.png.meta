@@ -1,6 +1,6 @@
 {
   "ver": "2.3.3",
-  "uuid": "d74820d1-9607-4253-b4b4-8b598f482d15",
+  "uuid": "ce7e2c71-fdf3-4a34-b966-3ebecdf739cd",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,19 +9,19 @@
   "packable": true,
   "platformSettings": {},
   "subMetas": {
-    "player_11": {
+    "frame_4": {
       "ver": "1.0.4",
-      "uuid": "20c89182-0b8d-4198-a1c1-ed52b00a4922",
-      "rawTextureUuid": "d74820d1-9607-4253-b4b4-8b598f482d15",
+      "uuid": "16b861ff-e354-4d0a-8ee4-a29f5d71fb7f",
+      "rawTextureUuid": "ce7e2c71-fdf3-4a34-b966-3ebecdf739cd",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
       "offsetX": 0,
-      "offsetY": -4,
+      "offsetY": -30.5,
       "trimX": 0,
-      "trimY": 36,
+      "trimY": 61,
       "width": 102,
-      "height": 212,
+      "height": 215,
       "rawWidth": 102,
       "rawHeight": 276,
       "borderTop": 0,
