@@ -17,9 +17,6 @@ export default class Player extends cc.Component {
 
     protected onLoad() {
         this._animation = this.getComponent( cc.Animation );
-        let animateState = this._animation.getAnimationState( EAmType.JUMP );
-        if ( animateState )
-            animateState.on( "finished", this._jumpFinished, this );
     }
 
     /**
@@ -35,7 +32,7 @@ export default class Player extends cc.Component {
         this._animation.play( EAmType.JUMP );
     }
 
-    private _jumpFinished(): void {
+    onJumpCompleted(): void {
         this._animation.play( EAmType.WALK );
     }
 

@@ -1,4 +1,5 @@
 import Player from "./Player";
+import Floor from "./Floor";
 
 const { ccclass, property } = cc._decorator;
 
@@ -27,12 +28,12 @@ export default class Game extends cc.Component {
     }
 
     private _onLeft(): void {
-        console.log( "向左" );
         this.player.getComponent( Player ).jump( -1 );
+        this.layer_floor.getComponent( Floor ).moveLeft();
     }
     private _onRight(): void {
-        console.log( "向右" );
         this.player.getComponent( Player ).jump( 1 );
+        this.layer_floor.getComponent( Floor ).moveRight();
     }
 
     start() {

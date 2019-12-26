@@ -3,8 +3,8 @@
   "_name": "player_jump",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 1.2,
-  "sample": 10,
+  "_duration": 0.5,
+  "sample": 18,
   "speed": 1,
   "wrapMode": 1,
   "curveData": {
@@ -14,71 +14,53 @@
           {
             "frame": 0,
             "value": {
-              "__uuid__": "8bf4c8d4-aa29-4d84-b113-d88b4f88f6c4"
-            }
-          },
-          {
-            "frame": 0.1,
-            "value": {
-              "__uuid__": "a034c67d-5fe2-4d62-b58a-d36a434ba1f6"
-            }
-          },
-          {
-            "frame": 0.2,
-            "value": {
-              "__uuid__": "de4b3dea-de46-48d6-8020-a26d7bd7da97"
-            }
-          },
-          {
-            "frame": 0.3,
-            "value": {
               "__uuid__": "77035f5a-ec83-4e6d-8a76-5dc717a6d097"
             }
           },
           {
-            "frame": 0.4,
+            "frame": 0.05555555555555555,
             "value": {
               "__uuid__": "169a1704-bde5-4b03-978c-41e78db6c236"
             }
           },
           {
-            "frame": 0.5,
+            "frame": 0.1111111111111111,
             "value": {
               "__uuid__": "6de89daa-f08d-4eff-99d9-694f92e06e89"
             }
           },
           {
-            "frame": 0.6,
+            "frame": 0.16666666666666666,
             "value": {
               "__uuid__": "d4a869b5-a6e1-4ffa-b568-527d65be85ef"
             }
           },
           {
-            "frame": 0.7,
+            "frame": 0.2222222222222222,
             "value": {
               "__uuid__": "5f2b7d8e-5dc9-440f-9a22-c1acf83a77b5"
             }
           },
           {
-            "frame": 0.8,
+            "frame": 0.2777777777777778,
             "value": {
               "__uuid__": "c262ce61-039e-4d78-a83f-95bc602208be"
             }
           },
           {
-            "frame": 0.9,
+            "frame": 0.3333333333333333,
             "value": {
               "__uuid__": "245769a7-4075-449e-b3d6-84422698c093"
             }
           },
           {
-            "frame": 1,
+            "frame": 0.3888888888888889,
             "value": {
               "__uuid__": "0d0cbc3d-bba6-418a-9434-0b9a5a1bdae8"
             }
           },
           {
-            "frame": 1.1,
+            "frame": 0.4444444444444444,
             "value": {
               "__uuid__": "6f338981-d3e7-41c1-bb0d-2624d24ed8f1"
             }
@@ -87,5 +69,11 @@
       }
     }
   },
-  "events": []
+  "events": [
+    {
+      "frame": 0.5,
+      "func": "onJumpCompleted",
+      "params": []
+    }
+  ]
 }

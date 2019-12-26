@@ -22,10 +22,16 @@ export default class Floor extends cc.Component {
 
     private _lastVc: cc.Vec2;
 
+    private _stepX: number;
+    private _stepY: number;
+
     onLoad() {
         this._lastVc = new cc.Vec2( 0, 0 );
         this._initProportion();
         this._initPlatProm();
+
+        this._stepX = this.pb_platForm.data.width / 2;
+        this._stepY = this.pb_platForm.data.height - 26;
         // let a = cc.instantiate( this.pb_platForm );
         // this.node.addChild( a );
         // a.x = 100;
@@ -85,7 +91,26 @@ export default class Floor extends cc.Component {
             this.node.addChild( platform );
             console.log( "block:", direction, platform.zIndex );
         }
+    }
 
+    /** 左移 */
+    moveLeft(): void {
+        cc.tween( this.node )
+            .by( 0.5, { position: cc.v2( this._stepX, -this._stepY ) } )
+            .call( () => {
+
+            } )
+            .start();
+    }
+
+    /** 右移 */
+    moveRight(): void {
+        cc.tween( this.node )
+            .by( 0.5, { position: cc.v2( -this._stepX, -this._stepY ) } )
+            .call( () => {
+
+            } )
+            .start();;
     }
 
     removePlatForm(): void {
