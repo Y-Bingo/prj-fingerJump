@@ -42,7 +42,18 @@ export default class PlatForm extends cc.Component {
     @property( [ cc.SpriteFrame ] )
     blockFrameList: cc.SpriteFrame[] = [];
 
-    // protected onLoad() {
-    //     // this.floorType = 0;
-    // }
+    /** 移动 */
+    move( direction: number ): cc.ActionInterval {
+        let offX = -direction * this.node.width / 2;
+        let offY = -( this.node.height - 26 );
+
+        let moveAc = cc.moveBy( 0.4, cc.v2( offX, offY ) );
+
+        return cc.targetedAction( this.node, moveAc );
+    }
+
+    /** 下落 */
+    drop( y: number ): cc.ActionInterval {
+        return cc.moveTo( 0.3, null, y );
+    }
 }

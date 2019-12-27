@@ -29,11 +29,11 @@ export default class Game extends cc.Component {
 
     private _onLeft(): void {
         this.player.getComponent( Player ).jump( -1 );
-        this.layer_floor.getComponent( Floor ).moveLeft();
+        this.layer_floor.getComponent( Floor ).move( -1 );
     }
     private _onRight(): void {
         this.player.getComponent( Player ).jump( 1 );
-        this.layer_floor.getComponent( Floor ).moveRight();
+        this.layer_floor.getComponent( Floor ).move( 1 );
     }
 
     start() {

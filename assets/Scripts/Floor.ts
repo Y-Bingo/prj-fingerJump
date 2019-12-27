@@ -20,97 +20,126 @@ export default class Floor extends cc.Component {
     /** 概率 */
     private _p: number[] = [];
 
-    private _lastVc: cc.Vec2;
+    /** 楼梯 */
+    private _stairsQue: cc.Node[];
+    /** 障碍 */
+    private _blockQue: cc.Node[];
 
-    private _stepX: number;
-    private _stepY: number;
+    private _startX: number;    // 开始下落点 X
+    private _startY: number;    // 开始下落点 Y
+    // private _lastX: number;     // 上一个落梯点 x
+    // private _lastY: number;     // 上一个落梯点 y
 
-    onLoad() {
-        this._lastVc = new cc.Vec2( 0, 0 );
+    protected onLoad() {
+        // this._lastX = 0;
+        // this._lastY = 0;
+        this._startX = 0;
+        this._startY = this.pb_platForm.data.height + this.node.height;
+        this._blockQue = [];
+        this._stairsQue = [];
+
         this._initProportion();
         this._initPlatProm();
-
-        this._stepX = this.pb_platForm.data.width / 2;
-        this._stepY = this.pb_platForm.data.height - 26;
-        // let a = cc.instantiate( this.pb_platForm );
-        // this.node.addChild( a );
-        // a.x = 100;
-        // a.y = 100;
     }
 
     /** 初始化概率 */
     private _initProportion(): void {
         let len = P.length;
-        for ( let i = 0;i < len;i++ ) {
+        for ( let i = 0; i < len; i++ ) {
             if ( i - 1 >= 0 )
                 this._p[ i ] = ( this._p[ i - 1 ] * 10 + P[ i ] * 10 ) / 10;
             else
                 this._p[ i ] = P[ i ];
         }
-        console.log( P, this._p );
+        // console.log( P, this._p );
     }
 
     /** 初始化平台 */
     private _initPlatProm(): void {
         let d = [ 1, -1, 1, -1, 1, -1, 1, -1, -1, 1 ];
-        for ( let i = 0;i < this.maxPlatForm;i++ ) {
-            let direction: number = Math.random() < 0.5 ? -1 : 1;
-            this._addBlockPlatForm( -d[ i ], i );
-            this._lastVc = this._addNextPlatForm( d[ i ], i );
+        for ( let i = 0; i < this.maxPlatForm; i++ ) {
+            this._addBlockPlatForm( d[ i ] );
+            this._addNextPlatForm( -d[ i ] );
         }
     }
 
     /** 添加一层 */
-    addNextFloor( isBlock: boolean = false ): void {
+    addNextFloor(): void {
+        let direction: number = Math.random() < 0.5 ? -1 : 1;
+        this._addBlockPlatForm( direction );
+        this._addNextPlatForm( -direction );
 
+        let vc = this._stairsQue[ this._stairsQue.length - 1 ] || cc.v2( 0, 0 );
+        console.log( vc.x, vc.y );
     }
 
     /** 添加普通层 */
-    private _addNextPlatForm( direction: number, index?: number ): cc.Vec2 {
+    private _addNextPlatForm( direction: number, isAm: boolean = false ): void {
         let platform = cc.instantiate( this.pb_platForm );
-        platform.x = this._lastVc.x + direction * platform.width / 2;
-        platform.y = this._lastVc.y + ( platform.height - 26 );
+        let lastVc = this._stairsQue[ this._stairsQue.length - 1 ] || cc.v2( 0, 0 );
+        let fixedX = lastVc.x + direction * platform.width / 2;
+        let fixedY = lastVc.y + ( platform.height - 26 );
+
         platform.zIndex = 0;
         this.node.addChild( platform );
+        this._stairsQue.push( platform );
 
-        console.log( "floor:", direction, platform.zIndex );
-        return platform.getPosition();
+        // this._lastX = fixedX;
+        // this._lastY = fixedY;
+
+        if ( !isAm ) {
+            platform.x = fixedX;
+            platform.y = fixedY;
+        } else {
+            platform.x = fixedX;
+            platform.y = this._startY;
+            platform.getComponent( PlatForm ).drop( fixedY );
+        }
+        // console.log( "floor:", direction, platform.zIndex );
     }
 
     /** 添加障碍层 */
-    private _addBlockPlatForm( direction: number, index?: number ): void {
+    private _addBlockPlatForm( direction: number, isAm: boolean = false ): void {
         let blockIndex = this._getRandomBlockIndex();
-        if ( blockIndex != EFloorType.NONE ) {
-            let blockType = this._getRandomBlockType();
-            let platform = cc.instantiate( this.pb_platForm );
+        if ( blockIndex == EFloorType.NONE ) return;
 
-            platform.getComponent( PlatForm ).floorType = blockType;
-            platform.x = this._lastVc.x + direction * platform.width / 2 * blockIndex;
-            platform.y = this._lastVc.y + ( platform.height - 26 ) * blockIndex;
-            platform.zIndex = blockIndex * this.maxPlatForm - index;
-            this.node.addChild( platform );
-            console.log( "block:", direction, platform.zIndex );
+        let blockType = this._getRandomBlockType();
+        let platform = cc.instantiate( this.pb_platForm );
+        let lastVc = this._stairsQue[ this._stairsQue.length - 1 ] || cc.v2( 0, 0 );
+        let fixedX = lastVc.x + direction * platform.width / 2 * blockIndex;
+        let fixedY = lastVc.y + ( platform.height - 26 ) * blockIndex;
+
+        platform.getComponent( PlatForm ).floorType = blockType;
+        platform.zIndex = blockIndex * this.maxPlatForm - this._blockQue.length;
+        this.node.addChild( platform );
+        this._blockQue.push( platform );
+
+        if ( !isAm ) {
+            platform.x = fixedX;
+            platform.y = fixedY;
+        } else {
+            platform.x = fixedX;
+            platform.y = this._startY;
+            platform.getComponent( PlatForm ).drop( fixedY );
         }
+        // console.log( "block:", direction, platform.zIndex );
     }
 
-    /** 左移 */
-    moveLeft(): void {
-        cc.tween( this.node )
-            .by( 0.5, { position: cc.v2( this._stepX, -this._stepY ) } )
-            .call( () => {
+    /** 移动 */
+    move( direction: number ): void {
+        let numStairs = this._stairsQue.length;
+        let actionArr = [];
+        for ( let i = numStairs - 1; i >= 0; i-- ) {
+            actionArr.push( this._stairsQue[ i ].getComponent( PlatForm ).move( direction ) );
+        }
 
-            } )
-            .start();
-    }
+        let numBlock = this._blockQue.length;
+        for ( let i = numBlock - 1; i >= 0; i-- ) {
+            actionArr.push( this._blockQue[ i ].getComponent( PlatForm ).move( direction ) );
+        }
 
-    /** 右移 */
-    moveRight(): void {
-        cc.tween( this.node )
-            .by( 0.5, { position: cc.v2( -this._stepX, -this._stepY ) } )
-            .call( () => {
-
-            } )
-            .start();;
+        let finished = cc.callFunc( this.addNextFloor, this );
+        this.node.runAction( cc.sequence( cc.spawn( actionArr ), finished ) );
     }
 
     removePlatForm(): void {
@@ -120,19 +149,16 @@ export default class Floor extends cc.Component {
     /** 获取随机障碍物距离 */
     private _getRandomBlockIndex(): number {
         let r = Math.random();
-        for ( let i = 0;i < this._p.length;i++ ) {
+        for ( let i = 0; i < this._p.length; i++ ) {
             if ( r < this._p[ i ] )
                 return i;
         }
         return 0;
     }
 
+    /** 获取障碍类型 */
     private _getRandomBlockType(): EFloorType {
         return Math.ceil( Math.random() * 5 );
-    }
-
-    start() {
-
     }
 
     update() {
