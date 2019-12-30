@@ -17,6 +17,12 @@ export default class Player extends cc.Component {
 
     protected onLoad() {
         this._animation = this.getComponent( cc.Animation );
+
+        this.node.zIndex = 100;
+    }
+
+    protected start() {
+        // this.node.x = this.node.parent.getComponent()
     }
 
     /**

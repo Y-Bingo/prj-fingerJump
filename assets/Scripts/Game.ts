@@ -30,14 +30,18 @@ export default class Game extends cc.Component {
     private _onLeft(): void {
         this.player.getComponent( Player ).jump( -1 );
         this.layer_floor.getComponent( Floor ).move( -1 );
+
+        console.dir( this.layer_floor.getComponent( Floor ).getD() );
     }
     private _onRight(): void {
         this.player.getComponent( Player ).jump( 1 );
         this.layer_floor.getComponent( Floor ).move( 1 );
+
+        console.dir( this.layer_floor.getComponent( Floor ).getD() );
     }
 
     start() {
-
+        this.player.getComponent( Player ).jump( 1 );
     }
 
     update( dt ) {
