@@ -14,6 +14,8 @@ export default class Player extends cc.Component {
     // 当前方向
     private _direction: number = 0;
 
+    /** 是否掉落状态 */
+    private _isFall: boolean = false;
 
     protected onLoad() {
         this._animation = this.getComponent( cc.Animation );
@@ -29,7 +31,8 @@ export default class Player extends cc.Component {
      * 跳跃
      * @param direction 
      */
-    jump( direction: number ): void {
+    jump( direction: number, isFall: boolean = false ): void {
+        this._isFall = isFall;
         this.turnDirection( direction );
         this._jump();
     }
@@ -40,6 +43,10 @@ export default class Player extends cc.Component {
 
     onJumpCompleted(): void {
         this._animation.play( EAmType.WALK );
+        // if ( this._isFall ) {
+        //     this.node.zIndex = 0;
+        //     this.node.runAction( cc.moveBy( 0.3, 0, -400 ) );
+        // }
     }
 
     /** 转向 */

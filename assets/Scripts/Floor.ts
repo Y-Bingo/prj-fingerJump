@@ -19,7 +19,6 @@ export default class Floor extends cc.Component {
     @property
     dropTime: number = 1;
 
-
     /** 概率 */
     private _p: number[] = [];
 
@@ -37,6 +36,7 @@ export default class Floor extends cc.Component {
     private _stepY: number;
 
     private _dArr: number[];        // 方向管理
+    private _bArr: number[];        // 障碍管理
 
     protected onLoad() {
 
@@ -50,6 +50,7 @@ export default class Floor extends cc.Component {
         this.lastX = 0;
 
         this._dArr = [];
+        this._bArr = [];
         this._blockQue = [];
         this._stairsQue = [];
 
@@ -57,9 +58,16 @@ export default class Floor extends cc.Component {
         this._initPlatProm();
     }
 
-    getD(): number[] {
-        return this._dArr;
+    /** 检查是否为正确方向 */
+    checkRightDirection( nextDirection: number ): boolean {
+        return this._dArr[ 0 ] == nextDirection;
     }
+
+    /** 检查是否被阻挡 */
+    checkIsBlock(): boolean {
+        return this._bArr[ 0 ] == 1;
+    }
+
 
     /** 初始化概率 */
     private _initProportion(): void {
@@ -78,7 +86,7 @@ export default class Floor extends cc.Component {
         let direction: number;
         for ( let i = 0; i < this.maxPlatForm; i++ ) {
             direction = Math.random() < 0.5 ? -1 : 1;
-            this._dArr.push( direction );
+            // this._dArr.push( direction );
             this._addBlockPlatForm( -direction );
             this._addNextPlatForm( direction );
         }
@@ -91,7 +99,6 @@ export default class Floor extends cc.Component {
     private _addNextFloor(): void {
 
         let direction: number = Math.random() < 0.5 ? -1 : 1;
-        this._dArr.push( direction );
 
         this._addBlockPlatForm( -direction, true );
         this._addNextPlatForm( direction, true );
@@ -101,6 +108,8 @@ export default class Floor extends cc.Component {
 
     /** 添加普通层 */
     private _addNextPlatForm( direction: number, isAm: boolean = false ): void {
+        this._dArr.push( direction );
+
         let platform = cc.instantiate( this.pb_platForm );
         this.node.addChild( platform );
         this._stairsQue.push( platform );
@@ -121,7 +130,8 @@ export default class Floor extends cc.Component {
     /** 添加障碍层 */
     private _addBlockPlatForm( direction: number, isAm: boolean = false ): void {
         let blockIndex = this._getRandomBlockIndex();
-        if ( blockIndex == EFloorType.NONE || ( this.lastY == 0 && this.lastX == 0 ) ) return;
+        this._bArr.push( blockIndex );
+        if ( blockIndex == 0 ) return;
 
         let blockType = this._getRandomBlockType();
         let platform = cc.instantiate( this.pb_platForm );
@@ -141,7 +151,7 @@ export default class Floor extends cc.Component {
             platform.y = this._startY;
             platform.getComponent( PlatForm ).drop( fixedX, fixedY );
         }
-        console.log( "block:", direction, blockIndex );
+        // console.log( "block:", direction, blockIndex );
     }
 
     /** 排序 */
@@ -160,6 +170,9 @@ export default class Floor extends cc.Component {
     move( direction: number ): void {
         let offX = -direction * this._stepX;
         let offY = -this._stepY;
+
+        this._dArr.shift();
+        this._bArr.shift();
 
         this.lastX = Math.round( this.lastX + offX );
         this.lastY = Math.round( this.lastY + offY );
@@ -185,19 +198,32 @@ export default class Floor extends cc.Component {
     }
 
     private _removePlatForm(): void {
-        let stairsLen = this._stairsQue.length;
-        let blockLen = this._blockQue.length;
 
-        for ( let i = 0; i < stairsLen - 1; i++ )
-            if ( this._stairsQue[ i ].y <= - this._stairsQue[ i ].height ) {
-                this._stairsQue[ i ].getComponent( PlatForm ).fall();
-                this._dArr.shift();
-                // this._stairsQue[ i ].removeFromParent( true );
+        let minHeight = -this._stepY * 1.5;
+
+        // 移除楼梯
+        while ( this._stairsQue.length ) {
+            if ( this._stairsQue[ 0 ].y <= minHeight ) {
+                this._stairsQue
+                    .shift()
+                    .getComponent( PlatForm )
+                    .fall();
+            } else {
+                break;
             }
+        }
 
-        for ( let j = 0; j < blockLen - 1; j++ )
-            if ( this._blockQue[ j ].y <= - this._blockQue[ j ].height )
-                this._blockQue[ j ].getComponent( PlatForm ).fall();
+        // 移除障碍
+        while ( this._blockQue.length ) {
+            if ( this._blockQue[ 0 ].y <= minHeight ) {
+                this._blockQue
+                    .shift()
+                    .getComponent( PlatForm )
+                    .fall();
+            } else {
+                break;
+            }
+        }
     }
 
     /** 获取随机障碍物距离 */

@@ -1,5 +1,6 @@
 import Player from "./Player";
 import Floor from "./Floor";
+import Leaves from "./Leaves";
 
 const { ccclass, property } = cc._decorator;
 
@@ -28,16 +29,35 @@ export default class Game extends cc.Component {
     }
 
     private _onLeft(): void {
-        this.player.getComponent( Player ).jump( -1 );
-        this.layer_floor.getComponent( Floor ).move( -1 );
-
-        console.dir( this.layer_floor.getComponent( Floor ).getD() );
+        if ( this.layer_floor.getComponent( Floor ).checkRightDirection( -1 ) ) {
+            this.layer_floor.getComponent( Floor ).move( -1 );
+            this.layer_leaves.getComponent( Leaves ).move();
+            this.player.getComponent( Player ).jump( -1 );
+        } else {
+            if ( this.layer_floor.getComponent( Floor ).checkIsBlock() ) {
+            } else {
+                // this.layer_floor.getComponent( Floor ).move( -1 );
+                // this.layer_leaves.getComponent( Leaves ).move();
+                // this.player.getComponent( Player ).jump( -1, true );
+            }
+            console.dir( "应该跳向【右】边的，却跳【左】边了" );
+        }
     }
     private _onRight(): void {
-        this.player.getComponent( Player ).jump( 1 );
-        this.layer_floor.getComponent( Floor ).move( 1 );
+        if ( this.layer_floor.getComponent( Floor ).checkRightDirection( 1 ) ) {
+            this.layer_floor.getComponent( Floor ).move( 1 );
+            this.layer_leaves.getComponent( Leaves ).move();
+            this.player.getComponent( Player ).jump( 1 );
+        } else {
+            if ( this.layer_floor.getComponent( Floor ).checkIsBlock() ) {
 
-        console.dir( this.layer_floor.getComponent( Floor ).getD() );
+            } else {
+                // this.layer_floor.getComponent( Floor ).move( 1 );
+                // this.layer_leaves.getComponent( Leaves ).move();
+                // this.player.getComponent( Player ).jump( 1, true );
+            }
+            console.dir( "应该跳向【左】边的，却跳【右】边了" );
+        }
     }
 
     start() {

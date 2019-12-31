@@ -180,7 +180,7 @@
       "array": [
         0,
         0,
-        760.3703045227372,
+        774.2267109832882,
         0,
         0,
         0,
@@ -284,7 +284,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -489.912,
+        -485.33,
         0,
         0,
         0,
@@ -453,8 +453,8 @@
     "_alignFlags": 5,
     "_left": 0,
     "_right": 0,
-    "_top": -80.08800000000002,
-    "_bottom": 150.08800000000002,
+    "_top": -84.67000000000002,
+    "_bottom": 154.67000000000002,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -478,7 +478,7 @@
     "pb_platForm": {
       "__uuid__": "40334db9-ff5c-40d5-b734-c789f383f227"
     },
-    "maxPlatForm": 9,
+    "maxPlatForm": 8,
     "dropTime": 1,
     "_id": "2dEgG3XFBLT79LT8+PCDff"
   },
@@ -503,7 +503,7 @@
         "__id__": 22
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 25
@@ -1105,12 +1105,13 @@
     "right_2": {
       "__id__": 22
     },
+    "dropSpeed": 100,
     "_id": "a7a8SfDHdEdKY4riOdpcAN"
   },
   {
     "__type__": "cc.Node",
     "_name": "leftBtn",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 2
     },
@@ -1342,7 +1343,7 @@
   {
     "__type__": "cc.Node",
     "_name": "rightBtn",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 2
     },
