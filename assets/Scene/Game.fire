@@ -144,7 +144,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Main Camera",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 2
     },
@@ -180,7 +180,7 @@
       "array": [
         0,
         0,
-        774.2267109832882,
+        1108.5125168440816,
         0,
         0,
         0,
@@ -242,7 +242,7 @@
   {
     "__type__": "cc.Node",
     "_name": "floor",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 2
     },
@@ -284,7 +284,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -485.33,
+        -400.801,
         0,
         0,
         0,
@@ -453,8 +453,8 @@
     "_alignFlags": 5,
     "_left": 0,
     "_right": 0,
-    "_top": -84.67000000000002,
-    "_bottom": 154.67000000000002,
+    "_top": -169.199,
+    "_bottom": 239.199,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -1105,13 +1105,14 @@
     "right_2": {
       "__id__": 22
     },
-    "dropSpeed": 100,
+    "dropSpeed": 80,
+    "moveSpeed": 8,
     "_id": "a7a8SfDHdEdKY4riOdpcAN"
   },
   {
     "__type__": "cc.Node",
     "_name": "leftBtn",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 2
     },

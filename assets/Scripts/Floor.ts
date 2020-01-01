@@ -180,13 +180,13 @@ export default class Floor extends cc.Component {
         let actionArr = [];
         let stairsQue = this._stairsQue;
         for ( let i = stairsQue.length - 1; i >= 0; i-- ) {
-            let moveAc = cc.moveBy( 0.3, cc.v2( offX, offY ) );
+            let moveAc = cc.moveBy( 0.35, cc.v2( offX, offY ) );
             actionArr.push( cc.targetedAction( stairsQue[ i ], moveAc ) );
         }
 
         let blockQue = this._blockQue;
         for ( let i = blockQue.length - 1; i >= 0; i-- ) {
-            let moveAc = cc.moveBy( 0.3, cc.v2( offX, offY ) );
+            let moveAc = cc.moveBy( 0.35, cc.v2( offX, offY ) );
             actionArr.push( cc.targetedAction( blockQue[ i ], moveAc ) );
         }
 

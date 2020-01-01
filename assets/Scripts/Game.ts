@@ -31,7 +31,7 @@ export default class Game extends cc.Component {
     private _onLeft(): void {
         if ( this.layer_floor.getComponent( Floor ).checkRightDirection( -1 ) ) {
             this.layer_floor.getComponent( Floor ).move( -1 );
-            this.layer_leaves.getComponent( Leaves ).move();
+            this.layer_leaves.getComponent( Leaves ).move( -1 );
             this.player.getComponent( Player ).jump( -1 );
         } else {
             if ( this.layer_floor.getComponent( Floor ).checkIsBlock() ) {
@@ -46,7 +46,7 @@ export default class Game extends cc.Component {
     private _onRight(): void {
         if ( this.layer_floor.getComponent( Floor ).checkRightDirection( 1 ) ) {
             this.layer_floor.getComponent( Floor ).move( 1 );
-            this.layer_leaves.getComponent( Leaves ).move();
+            this.layer_leaves.getComponent( Leaves ).move( 1 );
             this.player.getComponent( Player ).jump( 1 );
         } else {
             if ( this.layer_floor.getComponent( Floor ).checkIsBlock() ) {
