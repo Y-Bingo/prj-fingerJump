@@ -31,13 +31,20 @@ export default class Leaves extends cc.Component {
     private _minRightX: number;
     private _maxRightX: number;
 
-    onLoad() {
+    protected onLoad() {
         this._setPos();
 
         this._minLeftX = Math.round( this.left_1.x - this.left_1.width / 3 );
         this._maxLeftX = this.left_1.x;
         this._minRightX = this.right_1.x;
         this._maxRightX = Math.round( this.right_1.x + this.right_1.width / 2 );
+    }
+
+    onStart(): void {
+        this.left_1.x = this._maxLeftX;
+        this.left_2.x = this._maxLeftX;
+        this.right_1.x = this._minRightX;
+        this.right_2.x = this._minRightX;
     }
 
     /** 初始化位置 */
@@ -67,10 +74,10 @@ export default class Leaves extends cc.Component {
             rightOffX = this._minRightX - this.right_1.x;
 
         let call = cc.callFunc( this._connectBg, this );
-        let dropLeft_1 = cc.targetedAction( this.left_1, cc.moveBy( 0.5, leftOffX, offY ) );
-        let dropLeft_2 = cc.targetedAction( this.left_2, cc.moveBy( 0.5, leftOffX, offY ) );
-        let dropRight_1 = cc.targetedAction( this.right_1, cc.moveBy( 0.5, rightOffX, offY ) );
-        let dropRight_2 = cc.targetedAction( this.right_2, cc.moveBy( 0.5, rightOffX, offY ) );
+        let dropLeft_1 = cc.targetedAction( this.left_1, cc.moveBy( 0.7, leftOffX, offY ) );
+        let dropLeft_2 = cc.targetedAction( this.left_2, cc.moveBy( 0.7, leftOffX, offY ) );
+        let dropRight_1 = cc.targetedAction( this.right_1, cc.moveBy( 0.7, rightOffX, offY ) );
+        let dropRight_2 = cc.targetedAction( this.right_2, cc.moveBy( 0.7, rightOffX, offY ) );
         let spawn = cc.sequence( cc.spawn( dropLeft_1, dropLeft_2, dropRight_2, dropRight_1 ), call );
 
         this.node.runAction( spawn );
