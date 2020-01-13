@@ -90,6 +90,9 @@ export default class Game extends cc.Component {
                 this.layer_floor.getComponent( Floor ).move( -1 );
                 this.layer_leaves.getComponent( Leaves ).move( -1 );
                 this.player.getComponent( Player ).jump( -1, true );
+            } else {
+                this.player.getComponent( Player ).jump( -1, false );
+
             }
             this._onGameEnd();
             console.dir( "应该跳向【右】边的，却跳【左】边了" );
@@ -105,6 +108,8 @@ export default class Game extends cc.Component {
                 this.layer_floor.getComponent( Floor ).move( 1 );
                 this.layer_leaves.getComponent( Leaves ).move( 1 );
                 this.player.getComponent( Player ).jump( 1, true );
+            } else {
+                this.player.getComponent( Player ).jump( 1, false );
             }
             this._onGameEnd();
             console.dir( "应该跳向【左】边的，却跳【右】边了" );

@@ -4,22 +4,29 @@
       true
     ]
   ],
-  "excluded-modules": [],
+  "excluded-modules": [
+    "ParticleSystem",
+    "Toggle",
+    "TiledMap",
+    "VideoPlayer",
+    "3D",
+    "3D Primitive"
+  ],
   "group-list": [
     "default"
   ],
-  "design-resolution-width": 720,
-  "design-resolution-height": 1280,
-  "fit-width": true,
+  "design-resolution-width": 640,
+  "design-resolution-height": 1136,
+  "fit-width": false,
   "fit-height": true,
   "use-project-simulator-setting": false,
   "simulator-orientation": false,
-  "use-customize-simulator": true,
+  "use-customize-simulator": false,
   "simulator-resolution": {
-    "height": 640,
-    "width": 960
+    "height": 1136,
+    "width": 640
   },
-  "last-module-event-record-time": 1577120775856,
+  "last-module-event-record-time": 1578887163397,
   "assets-sort-type": "name",
   "facebook": {
     "appID": "",
@@ -30,6 +37,5 @@
     "live": {
       "enable": false
     }
-  },
-  "start-scene": "current"
+  }
 }

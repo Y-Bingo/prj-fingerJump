@@ -103,10 +103,14 @@ export default class Floor extends cc.Component {
             this._addNextPlatForm( direction );
         }
 
-        this.move( this._dArr[ 0 ] || 1 );
+        this.move( this._dArr[ 0 ] );
         this._sortPlatform();
 
         this._isLoad = true;
+    }
+
+    getFirstDirection(): number {
+        return this._dArr[ 0 ];
     }
 
     /** 添加一层 */
