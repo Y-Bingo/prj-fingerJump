@@ -83,7 +83,7 @@
   {
     "__type__": "cc.Node",
     "_name": "block",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -159,7 +159,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "a8266c7f-5f3a-45bd-8a0c-97716e371855"
+    },
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -171,7 +173,9 @@
     "_fillStart": 0,
     "_fillRange": 0,
     "_isTrimmedMode": true,
-    "_atlas": null,
+    "_atlas": {
+      "__uuid__": "ba5deac6-f920-4cd1-b9e7-efcf78a95ddb"
+    },
     "_id": ""
   },
   {
@@ -184,38 +188,6 @@
     },
     "fileId": "234L4pxUlLJbckOUNqD3b9",
     "sync": false
-  },
-  {
-    "__type__": "200ce0aurxFWoYh7St/gAMe",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "block": {
-      "__id__": 2
-    },
-    "_floorType": 0,
-    "blockFrameList": [
-      null,
-      {
-        "__uuid__": "f86d9b76-5a24-4998-aa06-0ce18f2bc5a5"
-      },
-      {
-        "__uuid__": "a8266c7f-5f3a-45bd-8a0c-97716e371855"
-      },
-      {
-        "__uuid__": "1d00f8d0-b9a9-4481-993d-3e9f833d7a08"
-      },
-      {
-        "__uuid__": "4b65e717-4cac-4afd-bc40-968cd1e5eb87"
-      },
-      {
-        "__uuid__": "c0230644-1756-4678-a7b3-e915c9e091bb"
-      }
-    ],
-    "_id": ""
   },
   {
     "__type__": "cc.Sprite",
@@ -249,6 +221,38 @@
     "_atlas": {
       "__uuid__": "ba5deac6-f920-4cd1-b9e7-efcf78a95ddb"
     },
+    "_id": ""
+  },
+  {
+    "__type__": "26eb7WtYyJNBJp9hZE+pkNt",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "block": {
+      "__id__": 2
+    },
+    "_floorType": 4,
+    "blockFrameList": [
+      null,
+      {
+        "__uuid__": "f86d9b76-5a24-4998-aa06-0ce18f2bc5a5"
+      },
+      {
+        "__uuid__": "a8266c7f-5f3a-45bd-8a0c-97716e371855"
+      },
+      {
+        "__uuid__": "1d00f8d0-b9a9-4481-993d-3e9f833d7a08"
+      },
+      {
+        "__uuid__": "4b65e717-4cac-4afd-bc40-968cd1e5eb87"
+      },
+      {
+        "__uuid__": "c0230644-1756-4678-a7b3-e915c9e091bb"
+      }
+    ],
     "_id": ""
   },
   {

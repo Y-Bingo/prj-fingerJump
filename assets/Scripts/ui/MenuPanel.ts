@@ -1,10 +1,10 @@
-import NotificationCenter from "./NotificationCenter";
-import { GameEvent } from "./Constans";
-
 const { property, ccclass } = cc._decorator;
 
 @ccclass
 export default class MenuPanel extends cc.Component {
+    /** 菜单面板 */
+    @property( cc.Node )
+    view: cc.Node = null;
 
     @property( cc.Node )
     mask: cc.Node = null;
@@ -16,13 +16,9 @@ export default class MenuPanel extends cc.Component {
     private _targetY: number = -1200;
 
     protected onLoad() {
-        this._originY = this.node.y;
-        this._targetY = this.node.parent.height - this.node.height - this.node.y;
+        this._originY = this.view.y;
 
         this._initUI();
-
-        this.btn_start.on( 'click', this._onBtnStart, this );
-        NotificationCenter.getIns().on( GameEvent.GAME_END, this._onGameEnd, this );
     }
 
     private _initUI(): void {
@@ -35,24 +31,17 @@ export default class MenuPanel extends cc.Component {
         btnGp.stroke();
     }
 
-    private _onBtnStart(): void {
+    onStart(): void {
         console.log( "点击开始游戏" );
-        cc.tween( this.node )
-            .to( 0.3, { y: this._targetY } )
-            .call( () => {
-                NotificationCenter.getIns().emit( GameEvent.GAME_START );
-            } )
+        cc.tween( this.view )
+            .by( 0.3, { y: 1000 } )
             .start();
     }
 
-    private _onGameEnd(): void {
+    onGameEnd(): void {
         console.log( "游戏结束" );
-        cc.tween( this.node )
+        cc.tween( this.view )
             .to( 0.3, { y: this._originY } )
             .start();
-    }
-
-    protected onDestroy() {
-        this.btn_start.off( 'click', this._onBtnStart );
     }
 }

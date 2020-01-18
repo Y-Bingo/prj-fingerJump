@@ -1,3 +1,5 @@
+import Model from "../Model";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -19,21 +21,17 @@ export default class Leaves extends cc.Component {
     @property( cc.Node )
     right_2: cc.Node = null;
 
-    /** 下落速度 */
-    @property
-    dropSpeed: number = 40;
-
-    @property
-    moveSpeed: number = 5;
-
     private _minLeftX: number;
     private _maxLeftX: number;
     private _minRightX: number;
     private _maxRightX: number;
 
+    private _model: Model;
+
     protected onLoad() {
         this._setPos();
 
+        this._model = cc.find( 'Game/Model' ).getComponent( Model );
         this._minLeftX = Math.round( this.left_1.x - this.left_1.width / 3 );
         this._maxLeftX = this.left_1.x;
         this._minRightX = this.right_1.x;
@@ -59,8 +57,8 @@ export default class Leaves extends cc.Component {
     move( direction: number = 1 ): void {
         this.node.stopAllActions();
 
-        let offY = -this.dropSpeed;
-        let offX = direction * this.moveSpeed;
+        let offY = -this._model.dropSpeed;
+        let offX = direction * this._model.moveSpeed;
         let leftOffX = offX;
         let rightOffX = offX;
         if ( this.left_1.x + leftOffX >= this._maxLeftX )

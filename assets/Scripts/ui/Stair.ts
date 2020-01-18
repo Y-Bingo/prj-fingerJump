@@ -1,7 +1,7 @@
 const { ccclass, property } = cc._decorator;
 
 /** 楼梯/障碍物类型 */
-export enum EFloorType {
+export enum EStairType {
     NONE = 0,
     MOCK = 1,
     BOMB = 2,
@@ -11,7 +11,7 @@ export enum EFloorType {
 }
 
 @ccclass
-export default class PlatForm extends cc.Component {
+export default class Stair extends cc.Component {
 
     /** 障碍物 */
     @property( cc.Node )
@@ -19,15 +19,15 @@ export default class PlatForm extends cc.Component {
 
     /** 平台类型 */
     @property
-    private _floorType: EFloorType = -1;
+    private _floorType: EStairType = -1;
 
     @property
-    get floorType() { return this._floorType; }
+    get stairType() { return this._floorType; }
 
-    set floorType( value: EFloorType ) {
+    set stairType( value: EStairType ) {
         if ( isNaN( value ) ) return;
         if ( this._floorType == value ) return;
-        value = Math.max( Math.min( value, EFloorType.STONE ), EFloorType.NONE );
+        value = Math.max( Math.min( value, EStairType.STONE ), EStairType.NONE );
 
         this._floorType = value;
         this._changeType();
@@ -43,17 +43,16 @@ export default class PlatForm extends cc.Component {
     blockFrameList: cc.SpriteFrame[] = [];
 
     /** 下落 */
-    drop( x: number, y: number ): void {
-        this.node.runAction( cc.moveTo( 0.25, x, y ) );
+    drop( x: number, y: number, callback?: Function ): void {
+        let drop = cc.moveTo( 0.3, x, y );
+        let call = cc.callFunc( callback || ( () => { } ) );
+        this.node.runAction( cc.sequence( drop, call ) );
     }
 
     /** 坠落 */
-    fall(): void {
-        let drop = cc.moveBy( 0.2, 0, -150 );
-        let call = cc.callFunc( () => {
-            this.node.removeFromParent( true );
-        } );
-
+    fall( callback?: Function ): void {
+        let drop = cc.moveBy( 0.3, 0, -400 );
+        let call = cc.callFunc( callback || ( () => { } ) );
         this.node.runAction( cc.sequence( drop, call ) );
     }
 }

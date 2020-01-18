@@ -69,11 +69,5 @@
       }
     }
   },
-  "events": [
-    {
-      "frame": 0.375,
-      "func": "onJumpCompleted",
-      "params": []
-    }
-  ]
+  "events": []
 }

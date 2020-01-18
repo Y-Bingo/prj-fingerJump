@@ -1,54 +1,77 @@
-import Player from "./Player";
-import Floor from "./Floor";
-import Leaves from "./Leaves";
-import NotificationCenter from "./NotificationCenter";
-import { GameEvent } from "./Constans";
+import Model from "./Model";
+import Floor from "./ui/Floor";
+import Player from "./ui/Player";
+import Leaves from "./ui/Leaves";
+import MenuPanel from "./ui/MenuPanel";
 
 const { ccclass, property } = cc._decorator;
+
+export enum EDirection {
+    LEFT = -1,
+    RIGHT = 1
+}
+
 
 @ccclass
 export default class Game extends cc.Component {
 
+    @property( Model )
+    model: Model = null;
+
+    @property( cc.Node )
+    view: cc.Node = null;
+
     /** 景物层 */
-    @property( cc.Node )
-    layer_leaves: cc.Node = null;
-
+    @property( Leaves )
+    leaves: Leaves = null;
     /** 阶梯层 */
-    @property( cc.Node )
-    layer_floor: cc.Node = null;
+    @property( Floor )
+    floor: Floor = null;
+    /** 玩家 */
+    @property( Player )
+    player: Player = null;
 
-    @property( cc.Node )
-    player: cc.Node = null;
+    @property( MenuPanel )
+    menu: MenuPanel = null;
 
     private _isStart: boolean = false;
     private _isInit: boolean = false;
 
     protected onLoad() {
         this._isInit = true;
-        NotificationCenter.getIns().on( GameEvent.GAME_START, this._onGameStart, this );
     }
 
-    protected onDestroy() {
-        NotificationCenter.getIns().off( GameEvent.GAME_START, this._onGameStart, this );
+    onBtnStart(): void {
+        this._onGameStart();
     }
 
     private _onGameStart(): void {
         if ( !this._isInit ) {
-            this.player.getComponent( Player ).onStart();
-            this.layer_floor.getComponent( Floor ).onStart();
-            this.layer_leaves.getComponent( Leaves ).onStart();
+            this._isInit = true;
+            this.player.onStart();
+            this.floor.onStart();
+            this.leaves.onStart();
+
+            let direction = this.model.getFirstDirection();
+            console.log( "jump:", direction );
+            this.player.move( direction );
+            this.floor.move( direction );
         }
-        this.node.on( cc.Node.EventType.TOUCH_END, this._onTouch, this );
+        this.menu.onStart();
+        this.view.on( cc.Node.EventType.TOUCH_END, this._onTouch, this );
     }
 
     private _onGameEnd(): void {
         this._isInit = false;
-        this._isStart = false;
-        // this.player.getComponent( Player ).onEnd();
-        this.unschedule( this._onSchedule );
-        this.layer_floor.getComponent( Floor ).onEnd();
-        this.node.off( cc.Node.EventType.TOUCH_END, this._onTouch, this );
-        NotificationCenter.getIns().emit( GameEvent.GAME_END );
+
+        this._stopClock();
+        this.player.onEnd();
+        this.floor.onEnd();
+
+        this.model.reset();
+
+        this.menu.onGameEnd();
+        this.view.off( cc.Node.EventType.TOUCH_END, this._onTouch, this );
     }
 
 
@@ -56,68 +79,57 @@ export default class Game extends cc.Component {
     private _startClock(): void {
         if ( !this._isStart ) {
             this._isStart = true;
-            this.schedule( this._onSchedule, 1 );
+            this.schedule( this._onSchedule, 0.7 );
         }
+    }
+
+    private _stopClock(): void {
+        this._isStart = false;
+        this.unschedule( this._onSchedule );
     }
 
     private _onSchedule(): void {
-        if ( !this.layer_floor.getComponent( Floor ).removePlatForm() ) {
-            this.player.getComponent( Player ).fall();
+        this.floor.dropStair();
+        if ( this.model.checkPlayerDrop() ) {
+            this.player.fall();
             this._onGameEnd();
         }
     }
-
 
     /** 玩家操作 */
     private _onTouch( evt: cc.Event.EventTouch ): void {
         this._startClock();
 
-        if ( evt.getLocationX() <= this.node.width / 2 ) {
-            this._onLeft();
+        if ( evt.getLocationX() <= this.view.width / 2 ) {
+            this._onAction( EDirection.LEFT );
         } else {
-            this._onRight();
-        }
-        // console.log( evt.getLocation(), evt.getLocationInView(), evt.getLocationX(), evt.getLocationY() );
-    }
-
-    private _onLeft(): void {
-        if ( this.layer_floor.getComponent( Floor ).checkDirection( -1 ) ) {
-            this.layer_floor.getComponent( Floor ).move( -1 );
-            this.layer_leaves.getComponent( Leaves ).move( -1 );
-            this.player.getComponent( Player ).jump( -1 );
-        } else {
-            if ( !this.layer_floor.getComponent( Floor ).checkIsBlock() ) {
-                this.layer_floor.getComponent( Floor ).move( -1 );
-                this.layer_leaves.getComponent( Leaves ).move( -1 );
-                this.player.getComponent( Player ).jump( -1, true );
-            } else {
-                this.player.getComponent( Player ).jump( -1, false );
-
-            }
-            this._onGameEnd();
-            console.dir( "应该跳向【右】边的，却跳【左】边了" );
+            this._onAction( EDirection.RIGHT );
         }
     }
-    private _onRight(): void {
-        if ( this.layer_floor.getComponent( Floor ).checkDirection( 1 ) ) {
-            this.layer_floor.getComponent( Floor ).move( 1 );
-            this.layer_leaves.getComponent( Leaves ).move( 1 );
-            this.player.getComponent( Player ).jump( 1 );
+
+    private _onAction( direction: EDirection ): void {
+        if ( this.model.checkDirection( direction ) ) {
+            this.player.move( direction );
+            this.floor.move( direction );
+            this.leaves.move( direction );
         } else {
-            if ( !this.layer_floor.getComponent( Floor ).checkIsBlock() ) {
-                this.layer_floor.getComponent( Floor ).move( 1 );
-                this.layer_leaves.getComponent( Leaves ).move( 1 );
-                this.player.getComponent( Player ).jump( 1, true );
+            if ( !this.model.checkIsBlock() ) {
+                this.player.move( direction, false, true );
+                this.floor.move( direction );
+                this.leaves.move( direction );
             } else {
-                this.player.getComponent( Player ).jump( 1, false );
+                this.player.move( direction, true );
             }
             this._onGameEnd();
-            console.dir( "应该跳向【左】边的，却跳【右】边了" );
+            // console.dir( "应该跳向【右】边的，却跳【左】边了" );
         }
     }
 
     start() {
-        this.player.getComponent( Player ).jump( 1 );
+        let direction = this.model.getFirstDirection();
+        console.log( "jump:", direction );
+        this.player.move( direction );
+        this.floor.move( direction );
     }
 
     update( dt ) {
