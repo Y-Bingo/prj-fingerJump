@@ -127,12 +127,8 @@ export default class Game extends cc.Component {
 
     start() {
         let direction = this.model.getFirstDirection();
-        console.log( "jump:", direction );
+        // console.log( "jump:", direction );
         this.player.move( direction );
         this.floor.move( direction );
-    }
-
-    update( dt ) {
-
     }
 }

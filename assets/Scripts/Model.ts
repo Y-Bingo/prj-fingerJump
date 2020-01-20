@@ -94,7 +94,7 @@ export default class Model extends cc.Component {
         this._dArr.push( nextD );
         this._bArr.push( this._getRandomBlockIndex() );
 
-        console.log( "dArr:", this._dArr.join( "," ) );
+        // console.log( "dArr:", this._dArr.join( "," ) );
         // console.log( "bArr:", this._bArr.join( "," ) );
         return nextD;
     }
