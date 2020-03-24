@@ -39,10 +39,21 @@ export default class Leaves extends cc.Component {
     }
 
     onStart(): void {
-        this.left_1.x = this._maxLeftX;
-        this.left_2.x = this._maxLeftX;
-        this.right_1.x = this._minRightX;
-        this.right_2.x = this._minRightX;
+
+        // console.log( "before left_1: ", this.left_1.x, this.left_1.y );
+        // console.log( "before left_2: ", this.left_2.x, this.left_2.y );
+        // console.log( "before right_1: ", this.right_1.x, this.right_1.y );
+        // console.log( "before right_2: ", this.right_2.x, this.right_2.y );
+
+        // this.left_1.x = this._maxLeftX;
+        // this.left_2.x = this._maxLeftX;
+        // this.right_1.x = this._minRightX;
+        // this.right_2.x = this._minRightX;
+
+        // console.log( "after left_1: ", this.left_1.x, this.left_1.y );
+        // console.log( "after left_2: ", this.left_2.x, this.left_2.y );
+        // console.log( "after right_1: ", this.right_1.x, this.right_1.y );
+        // console.log( "after right_2: ", this.right_2.x, this.right_2.y );
     }
 
     /** 初始化位置 */
@@ -79,19 +90,20 @@ export default class Leaves extends cc.Component {
         let spawn = cc.sequence( cc.spawn( dropLeft_1, dropLeft_2, dropRight_2, dropRight_1 ), call );
 
         this.node.runAction( spawn );
+
     }
 
     private _connectBg(): void {
-        if ( this.left_1.y <= -this.left_1.height )
-            this.left_1.y = this.left_1.height + this.left_2.y;
+        if ( this.left_1.y <= -this.left_1.height + 300 )
+            this.left_1.y = this.left_1.height + this.left_2.y ;
 
-        if ( this.left_2.y <= -this.left_2.height )
-            this.left_2.y = this.left_2.height + this.left_1.y;
+        if ( this.left_2.y <= -this.left_2.height + 300 )
+            this.left_2.y = this.left_2.height + this.left_1.y ;
 
-        if ( this.right_1.y <= -this.right_1.height )
+        if ( this.right_1.y <= -this.right_1.height + 300 )
             this.right_1.y = this.right_1.height + this.right_2.y;
 
-        if ( this.right_2.y <= -this.right_2.height )
+        if ( this.right_2.y <= -this.right_2.height + 200 )
             this.right_2.y = this.right_2.height + this.right_1.y;
     }
 

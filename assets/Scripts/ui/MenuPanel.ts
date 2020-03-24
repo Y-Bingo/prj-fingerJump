@@ -15,6 +15,8 @@ export default class MenuPanel extends cc.Component {
     private _originY: number = 0;
     private _targetY: number = -1200;
 
+    private _parent: cc.Node;
+
     protected onLoad() {
         this._originY = this.view.y;
 
@@ -29,18 +31,22 @@ export default class MenuPanel extends cc.Component {
         let btnGp = this.btn_start.getComponentInChildren( cc.Graphics );
         btnGp.roundRect( 0, 0, this.btn_start.width, this.btn_start.height, this.btn_start.height / 2 );
         btnGp.stroke();
+
+        this._parent = this.view.parent;
     }
 
     onStart(): void {
         console.log( "点击开始游戏" );
         cc.tween( this.view )
             .by( 0.3, { y: 1000 } )
+            .hide()
             .start();
     }
 
     onGameEnd(): void {
         console.log( "游戏结束" );
         cc.tween( this.view )
+            .show()
             .to( 0.3, { y: this._originY } )
             .start();
     }

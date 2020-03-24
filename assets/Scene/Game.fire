@@ -518,7 +518,7 @@
   {
     "__type__": "cc.Node",
     "_name": "layer_leaves",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 2
     },
@@ -631,7 +631,7 @@
       "ctor": "Float64Array",
       "array": [
         -320,
-        0,
+        470.763,
         0,
         0,
         0,
@@ -755,7 +755,7 @@
       "ctor": "Float64Array",
       "array": [
         -320,
-        2734,
+        2502.158,
         0,
         0,
         0,
@@ -1003,7 +1003,7 @@
       "ctor": "Float64Array",
       "array": [
         320,
-        2734,
+        2048,
         0,
         0,
         0,
@@ -1118,7 +1118,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Menu",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 2
     },
@@ -1196,7 +1196,7 @@
   {
     "__type__": "cc.Node",
     "_name": "mask",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 25
     },
@@ -2067,7 +2067,7 @@
       "__id__": 43
     },
     "_enabled": true,
-    "maxStairNum": 8,
+    "maxStairNum": 7,
     "dropTime": 1,
     "dropSpeed": 100,
     "moveSpeed": 8,

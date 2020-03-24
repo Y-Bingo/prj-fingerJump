@@ -17,7 +17,7 @@ export default class Model extends cc.Component {
     dropSpeed: number = 40;
 
     @property
-    moveSpeed: number = 5;
+    moveSpeed: number = 100;
 
     /** 平台 */
     @property( cc.Prefab )
@@ -37,6 +37,11 @@ export default class Model extends cc.Component {
             for ( let k = Math.floor( P[ i ] * 10 ); k > 0; k-- )
                 p.push( i );
         this._p = p;
+
+        this._pool = new cc.NodePool( Stair );
+        // for( let i = 0 ; i < 30; i++ ) {
+        //     this._pool.put( cc.instantiate( this.stairPrefab ) );
+        // }
     }
 
     getStepX(): number {

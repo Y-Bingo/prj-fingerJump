@@ -5,7 +5,19 @@
     ]
   ],
   "excluded-modules": [
-    "ParticleSystem",
+    "Audio",
+    "AudioSource",
+    "Collider",
+    "EditBox",
+    "MotionStreak",
+    "Native Socket",
+    "Physics",
+    "ProgressBar",
+    "Slider",
+    "ScrollBar",
+    "ScrollView",
+    "Spine Skeleton",
+    "StudioComponent",
     "Toggle",
     "TiledMap",
     "VideoPlayer",
@@ -26,7 +38,7 @@
     "height": 1136,
     "width": 640
   },
-  "last-module-event-record-time": 1579512274425,
+  "last-module-event-record-time": 1585057286823,
   "assets-sort-type": "name",
   "facebook": {
     "appID": "",
@@ -37,6 +49,5 @@
     "live": {
       "enable": false
     }
-  },
-  "start-scene": "current"
+  }
 }

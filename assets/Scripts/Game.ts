@@ -56,6 +56,7 @@ export default class Game extends cc.Component {
             console.log( "jump:", direction );
             this.player.move( direction );
             this.floor.move( direction );
+            // this.leaves.move( direction );
         }
         this.menu.onStart();
         this.view.on( cc.Node.EventType.TOUCH_END, this._onTouch, this );
